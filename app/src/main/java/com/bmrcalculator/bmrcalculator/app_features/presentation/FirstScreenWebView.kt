@@ -93,6 +93,8 @@ fun FirstScreenWebView(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
+            AppRatingDialogBox()
+
             Box(
                 modifier = androidx.compose.ui.Modifier
                     .fillMaxSize(0.9f),
