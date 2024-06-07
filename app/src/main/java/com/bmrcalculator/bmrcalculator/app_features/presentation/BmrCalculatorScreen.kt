@@ -35,6 +35,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -185,7 +186,7 @@ fun BmrCalculatorScreen(
                 Spacer(modifier = Modifier.height(4.dp))
 
 
-                RadioButtons()
+                RadioButtons(radioButtonStates = uiStates, onEvent = onEvent)
 
                 Spacer(modifier = Modifier.height(4.dp))
 
@@ -209,10 +210,12 @@ fun BmrCalculatorScreen(
                 }
 
                 Spacer(modifier = Modifier.height(8.dp))
+                //Text(text = uiStates.newSelectedGender)
+
 
                 if (
-                    resultBoxVisibility.value == true
-                //uiStates.resultSheetVisibility == true
+                    //resultBoxVisibility.value == true
+                uiStates.resultSheetVisibility == true
 
                 ){
 
@@ -257,19 +260,27 @@ fun BmrCalculatorScreen(
 }
 
 @Composable
-fun RadioButtons(){
-    val radioButtons = remember {
-        mutableStateListOf(
-            RadioButtonClass(
-                isChecked = true,
-                gender = "Male"
-            ),
-            RadioButtonClass(
-                isChecked = false,
-                gender = "Female"
-            )
-        )
-    }
+fun RadioButtons(radioButtonStates: BmrCalculatorUiState, onEvent: (BmrUiEventInterface) -> Unit){
+//    val radioButtons = remember {
+//        mutableStateListOf(
+//            RadioButtonClass(
+//                isChecked = true,
+//                gender = "Male"
+//            ),
+//            RadioButtonClass(
+//                isChecked = false,
+//                gender = "Female"
+//            )
+//        )
+//    }
+
+    //HELPER
+//    val list = mutableListOf("Male", "Female")
+//    var selectedGender by rememberSaveable {
+//        mutableStateOf(list[0])
+//    }
+
+    var context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -279,31 +290,34 @@ fun RadioButtons(){
         horizontalAlignment = Alignment.Start
     ) {
         Text(text = "Your Gender:")
-        radioButtons.forEachIndexed{ index, info ->
+        radioButtonStates.list.forEach{item ->
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .clickable {
-                        radioButtons.replaceAll{
-                            it.copy(
-                                isChecked = it.gender == info.gender
-                            )
-                        }
+                       // onEvent(BmrUiEventInterface.UpdateRadioButton(info))
+
+//                        TODO()
+
                     }
             ){
 
                 RadioButton(
-                    selected = info.isChecked,
+                    selected = item == radioButtonStates.newSelectedGender,
                     onClick = {
-                        radioButtons.replaceAll{
-                            it.copy(
-                                isChecked = it.gender == info.gender
-                            )
-                        }
+                       // selectedGender = item
+                        //Toast.makeText(context, "${radioButtonStates.newselectedGender} selected", Toast.LENGTH_SHORT).show()
+                        onEvent(BmrUiEventInterface.HideResultSheet)
+                        onEvent(BmrUiEventInterface.SelectedGender(item))
+                        //TODO()
+
+
+                        //onEvent(BmrUiEventInterface.UpdateRadioButton(info))
+
 
                     }
                 )
-                Text(text = info.gender)
+                Text(text = item)
 
             }
 

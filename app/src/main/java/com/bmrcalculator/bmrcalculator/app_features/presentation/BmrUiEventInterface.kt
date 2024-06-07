@@ -12,6 +12,12 @@ sealed interface BmrUiEventInterface {
         object HideResultSheet: BmrUiEventInterface
         object ShowResultSheet: BmrUiEventInterface
 
+        data class UpdateRadioButton(val info: RadioButtonClass
+        ): BmrUiEventInterface
+
+        data class SelectedGender(val text: String
+        ): BmrUiEventInterface
+
 
 
 

@@ -8,7 +8,7 @@ data class BmrCalculatorUiState(
     var  weight : String = "",
     var age: String = "",
     var result: String = "",
-    val radioButtons: MutableList<RadioButtonClass> = mutableListOf<RadioButtonClass>(RadioButtonClass(
+    var radioButtons: MutableList<RadioButtonClass> = mutableListOf<RadioButtonClass>(RadioButtonClass(
         isChecked = true,
         gender = "Male"
     ),
@@ -16,7 +16,13 @@ data class BmrCalculatorUiState(
             isChecked = false,
             gender = "Female"
         )),
-    val resultSheetVisibility: Boolean = false
+    var resultSheetVisibility: Boolean = false,
+
+    var selectedGender: String = "Male",
+
+    val list: MutableList<String> = mutableListOf("Male", "Female"),
+    var newSelectedGender: String = list[0]
+
 
 
 
