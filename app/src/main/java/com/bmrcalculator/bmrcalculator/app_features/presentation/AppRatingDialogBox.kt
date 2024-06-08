@@ -1,4 +1,5 @@
 package com.bmrcalculator.bmrcalculator.app_features.presentation
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 //import androidx.compose.material3.ExperimentalMaterialApi
@@ -18,31 +20,45 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import coil.compose.ImagePainter
+import coil.compose.rememberImagePainter
+import coil.size.Size
+import com.bmrcalculator.bmrcalculator.MainActivity
 import com.bmrcalculator.bmrcalculator.app_features.data.data_store_repo.DialogBoxVisibilityController
 import kotlinx.coroutines.launch
+import java.io.InputStream
 
 
 //@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun AppRatingDialogBox(
    // demoQuizOnEvent: (DemoQuizUiEventClass) -> Unit,
-
-
     ) {
+
 
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
     val dataStore = DialogBoxVisibilityController(context)
+//    val gifPainter: Unit = remember{
+//        val inputStream: InputStream = MainActivity().assets.open("kawaii_cute .gif")
+//        rememberImagePainter(data = inputStream, builder = {
+//            size(Size.ORIGINAL)
+//        }) {
+//
+//        }
+//    }
 
 
 
@@ -66,7 +82,7 @@ fun AppRatingDialogBox(
                 .fillMaxSize(0.5f)
                 .background(color = Color.Green)
                 .fillMaxHeight(0.5f)
-                .fillMaxWidth(0.9f),
+                .width(500.dp),
 
            // backgroundColor = Cream
 
@@ -94,7 +110,7 @@ fun AppRatingDialogBox(
                             modifier = Modifier
                                 .align(Alignment.Start)
                                 .fillMaxWidth()
-                                .padding(start = 20.dp, top = 16.dp, end = 8.dp)
+                               // .padding(start = 20.dp, top = 16.dp, end = 8.dp)
                                 .weight(1f),
                             fontSize = 20.sp,
                             fontWeight = FontWeight.W400,
@@ -106,6 +122,11 @@ fun AppRatingDialogBox(
 
 
                 Spacer(modifier = Modifier.height(0.dp))
+
+//                Image(
+//                    painter = ImagePainter(data = "file:///android_asset/kawaii_cute .gif", builder = {}),
+//                    contentDescription = ""
+//                )
 
 
 

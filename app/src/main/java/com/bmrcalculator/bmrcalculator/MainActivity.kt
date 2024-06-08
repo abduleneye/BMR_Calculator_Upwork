@@ -3,6 +3,7 @@ package com.bmrcalculator.bmrcalculator
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.bmrcalculator.bmrcalculator.app_features.core.navigation.NavGraph
 import com.bmrcalculator.bmrcalculator.app_features.presentation.BmrCalculatorViewModel
@@ -22,7 +23,8 @@ class MainActivity : ComponentActivity() {
 //            }
 
             val navController = rememberNavController()
-            val bmrViewModel = BmrCalculatorViewModel()
+            val bmrViewModel = viewModel<BmrCalculatorViewModel>()
+
 
 
             NavGraph(

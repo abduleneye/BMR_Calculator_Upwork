@@ -101,12 +101,6 @@ fun FirstScreenWebView(
 
             //AppRatingDialogBox()
 
-            fun injectJavaScript(webView: WebView, script: String){
-
-                webView.evaluateJavascript(script, null)
-
-
-            }
 
             Box(
                 modifier = androidx.compose.ui.Modifier
@@ -114,43 +108,54 @@ fun FirstScreenWebView(
                 contentAlignment = Alignment.Center
             ) {
 
-                val context = LocalContext.current
+                Column(
+                    modifier = androidx.compose.ui.Modifier
+                        .fillMaxSize(1f),
+                ) {
 
-                AndroidView(factory = {
-                    //id = "myButton"
-                    WebView(it).apply {
-                        webViewClient = object: WebViewClient(){
-                            override fun shouldOverrideUrlLoading(
-                                view: WebView?,
-                                request: WebResourceRequest?
-                            ): Boolean {
+                    //ShowDialogBox()
 
-                                val url = request?.url.toString()
-                                return if (url.startsWith("action://start_second_activity")){
-                                  //  Toast.makeText(context, "Alhamdullilah", Toast.LENGTH_SHORT).show()
-                                    navController.navigate(ScreenRoutes.SecondScreenWebView.route)
-                                    true
 
-                                }else{
-                                    false
+                    val context = LocalContext.current
+
+                    AndroidView(factory = {
+                        //id = "myButton"
+                        WebView(it).apply {
+                            webViewClient = object: WebViewClient(){
+                                override fun shouldOverrideUrlLoading(
+                                    view: WebView?,
+                                    request: WebResourceRequest?
+                                ): Boolean {
+
+                                    val url = request?.url.toString()
+                                    return if (url.startsWith("action://start_second_activity")){
+                                        //  Toast.makeText(context, "Alhamdullilah", Toast.LENGTH_SHORT).show()
+                                        navController.navigate(ScreenRoutes.SecondScreenWebView.route)
+                                        true
+
+                                    }else{
+                                        false
+                                    }
                                 }
                             }
-                        }
 
-                        settings.javaScriptEnabled = true
+                            settings.javaScriptEnabled = true
 //                        settings.loadsImagesAutomatically = true
 //                        settings.useWideViewPort = true
 //                        settings.setSupportZoom(true)
 
-                        loadUrl(url)
+                            loadUrl(url)
 
-                        webView = this
-                    }
-                }, update = {
-                    it.loadUrl(url)
-                },
-                    modifier = androidx.compose.ui.Modifier
-                        .fillMaxSize(1f))
+                            webView = this
+                        }
+                    }, update = {
+                        it.loadUrl(url)
+                    },
+                        modifier = androidx.compose.ui.Modifier
+                            .fillMaxSize(1f))
+
+                }
+
 
             }
 
