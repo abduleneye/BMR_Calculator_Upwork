@@ -1,200 +1,213 @@
 package com.bmrcalculator.bmrcalculator.app_features.presentation
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
+import android.util.Log
+import android.widget.Toast
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
-//import androidx.compose.material3.ExperimentalMaterialApi
-import androidx.compose.material3.Text
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
-import coil.compose.ImagePainter
-import coil.compose.rememberImagePainter
-import coil.size.Size
-import com.bmrcalculator.bmrcalculator.MainActivity
-import com.bmrcalculator.bmrcalculator.app_features.data.data_store_repo.DialogBoxVisibilityController
-import kotlinx.coroutines.launch
-import java.io.InputStream
+import androidx.compose.ui.window.DialogProperties
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
+import coil.decode.GifDecoder
+import com.bmrcalculator.bmrcalculator.app_features.data.data_store_repo.DataStoreViewModel
 
-
-//@OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun AppRatingDialogBox(
-   // demoQuizOnEvent: (DemoQuizUiEventClass) -> Unit,
-    ) {
+    message: String,
+    recommend: String,
+    onDismiss: ()-> Unit,
+    onPositiveButtonClicked: ()-> Unit,
+    properties: DialogProperties = DialogProperties()
+){
 
 
-    val scope = rememberCoroutineScope()
+
+
     val context = LocalContext.current
-    val dataStore = DialogBoxVisibilityController(context)
-//    val gifPainter: Unit = remember{
-//        val inputStream: InputStream = MainActivity().assets.open("kawaii_cute .gif")
-//        rememberImagePainter(data = inputStream, builder = {
-//            size(Size.ORIGINAL)
-//        }) {
-//
-//        }
-//    }
+    val scope = rememberCoroutineScope()
 
 
 
-    Dialog(
-        onDismissRequest = {
-            //demoQuizOnEvent(DemoQuizUiEventClass.hideIntroDialogBoxVisibilty)
-
-        },
-//        properties = DialogProperties(
-//            dismissOnBackPress = true,
-//            dismissOnClickOutside = true,
-//            //securePolicy = SecureFlagPolicy.SecureOn,
-//        )
-    ) {
-
+    Dialog(onDismissRequest = onDismiss,  properties = properties) {
 
         Card(
-           // elevation = 8.dp,
-            shape = RoundedCornerShape(20.dp),
-            modifier = Modifier
-                .fillMaxSize(0.5f)
-                .background(color = Color.Green)
-                .fillMaxHeight(0.5f)
-                .width(500.dp),
-
-           // backgroundColor = Cream
-
+            elevation = 8.dp,
         ) {
-            Column(
-                //horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.SpaceAround,
-                modifier = Modifier
-                    //.fillMaxWidth()
-                    .fillMaxHeight(0.9f)
-            ) {
 
+            Column(modifier = Modifier
+                .fillMaxWidth(0.7f)
+                .padding(16.dp))
+            {
 
-                LazyColumn(
-                    horizontalAlignment = Alignment.Start,
-                    verticalArrangement = Arrangement.Top,
+                Icon(
+                    imageVector = Icons.Default.Close,
+                    contentDescription = "Close",
+                    tint = Color.Red,
                     modifier = Modifier
-                        .fillMaxSize()
-                        .weight(0.5f)
+                        .align(Alignment.End)
+                        .clickable(onClick = onDismiss )
+                )
+
+                Spacer(modifier = Modifier.padding(top = 5.dp))
+                AsyncImage(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data("file:///android_asset/kawaii_cute.gif")
+                        .decoderFactory(GifDecoder.Factory())
+                        .crossfade(true)
+                        .build(),
+                    contentDescription = null,
+
+                )
+
+                Spacer(modifier = Modifier
+                    .padding(top = 8.dp))
+
+                Text(
+                    text = message,
+                    style = MaterialTheme.typography.caption,
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.padding(top = 8.dp))
+                Text(
+                    text = recommend,
+                    style = MaterialTheme.typography.caption,
+                    modifier = Modifier.fillMaxWidth(),
+                    textAlign = TextAlign.Center
+                )
+                Spacer(modifier = Modifier.padding(top = 8.dp))
+                Row(
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    modifier = Modifier.fillMaxWidth()
                 ) {
 
-                    item {
-                        Text(
-                            text = "Rate App",
-                            modifier = Modifier
-                                .align(Alignment.Start)
-                                .fillMaxWidth()
-                               // .padding(start = 20.dp, top = 16.dp, end = 8.dp)
-                                .weight(1f),
-                            fontSize = 20.sp,
-                            fontWeight = FontWeight.W400,
-                            lineHeight = 29.sp
-                        )
-                    }
-
-                }
-
-
-                Spacer(modifier = Modifier.height(0.dp))
-
-//                Image(
-//                    painter = ImagePainter(data = "file:///android_asset/kawaii_cute .gif", builder = {}),
-//                    contentDescription = ""
-//                )
-
-
-
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        //  .fillMaxHeight()
-                        .padding(bottom = 24.dp),
-                    contentAlignment = Alignment.BottomCenter,
-
-                    ) {
-
-
-                    Column(
+                    Button(
                         modifier = Modifier
-                            .fillMaxWidth(),
-                        // .padding(end = 15.dp, bottom = 2.dp),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
+                            .fillMaxWidth()
+                            .padding(0.dp)
+                        ,
 
+                                onClick = onPositiveButtonClicked,
+                        colors = ButtonDefaults.buttonColors(
+                            backgroundColor = Color.Yellow,
+                            contentColor = Color.White,
 
-                    ) {
+                            ),) {
 
-//
-//                        Spacer(
-//                            modifier = Modifier
-//                                .width(16.dp)
-//                        )
-
-                        Button(
-                            onClick = {
-                                scope.launch {
-                                    //dataStore.saveQuizIntroDialogBoxVisibilityStatus(false)
-                                }
-                            },
-                            colors = ButtonDefaults.buttonColors(
-                               // containerColor = AppBars
-                            ),
-                            modifier = Modifier
-                                .fillMaxWidth(0.9f)
-                        ) {
-
-                            Text(text = "RATE US")
-
-                        }
-
+                        Text(text = "RATE US")
 
                     }
-
 
                 }
 
             }
 
-
         }
-
     }
-
 
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-@Preview(showSystemUi = true, showBackground = true)
-fun QuizIntoDialogBox(
 
-) {
-    //QuizIntroDialogBox()
-    Text(text = "Hello", modifier = Modifier.fillMaxSize())
+
+@Composable
+fun ShowDialogBox(
+    viewModel: DataStoreViewModel
+){
+    //
+    val entryCount by viewModel.entryCount.collectAsState()
+    val DialogShown by viewModel.DialogShown.collectAsState()
+
+    var showDi by remember(entryCount, DialogShown) {
+       mutableStateOf(entryCount > 1 && DialogShown)
+    }
+
+    //
+
+    val context = LocalContext.current
+
+
+
+
+
+
+    Column(modifier = Modifier
+        .fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center) {
+
+        if (entryCount == 2 && DialogShown == false){
+            AppRatingDialogBox(
+                message = "Like using Zeta app?",
+                recommend = "Recommend us to others by \n rating us on Play Store",
+                onDismiss = {
+                    viewModel.updateDialogShown(true)
+                    Toast.makeText(context,"Dismissed ${viewModel.DialogShown}",Toast.LENGTH_SHORT).show()},
+                onPositiveButtonClicked = {
+                    openPlayStoreReviewPage(context = context)
+                    viewModel.updateDialogShown(true)
+                    Toast.makeText(context,"Condi ${viewModel.DialogShown.value}",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Positive Button Clicked", Toast.LENGTH_SHORT).show()
+                },
+            )
+        }
+
+    }
+}
+
+fun openPlayStoreReviewPage(context: Context){
+    val appPackageName = context.packageName
+    //"com.engpacalculator.gpcalculator"
+    try{
+
+        context.startActivity(
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("market://details?id=$appPackageName&reviewId=0")
+            )
+        )
+
+    }catch (e: android.content.ActivityNotFoundException){
+        context.startActivity(
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://play.google.com/stor/apps/details?id=$appPackageName&reviewId=0")
+            )
+        )
+        
+    }
+
 }

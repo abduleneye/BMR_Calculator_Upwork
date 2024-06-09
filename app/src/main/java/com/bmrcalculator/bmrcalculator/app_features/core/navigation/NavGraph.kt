@@ -7,7 +7,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.bmrcalculator.bmrcalculator.app_features.presentation.FirstScreenWebView
+import com.bmrcalculator.bmrcalculator.app_features.data.data_store_repo.DataStoreViewModel
+import com.bmrcalculator.bmrcalculator.app_features.presentation.HomeScreen
 import com.bmrcalculator.bmrcalculator.app_features.presentation.BmrCalculatorScreen
 import com.bmrcalculator.bmrcalculator.app_features.presentation.BmrCalculatorViewModel
 
@@ -15,7 +16,9 @@ import com.bmrcalculator.bmrcalculator.app_features.presentation.BmrCalculatorVi
 fun NavGraph(
     navController: NavHostController,
     bmrCalculatorViewModel: BmrCalculatorViewModel,
-    ) {
+    viewModel: DataStoreViewModel
+
+) {
     val context = LocalContext.current
     val bmrUiStates by bmrCalculatorViewModel.bmrCalculatorUiState.collectAsState()
 
@@ -24,25 +27,17 @@ fun NavGraph(
         startDestination = ScreenRoutes.FirstScreenWebView.route
     ) {
         composable(route = ScreenRoutes.FirstScreenWebView.route) {
-            FirstScreenWebView(url = "https://ltobet.gb.net/test2/",
-                navController = navController
+            HomeScreen(url = "https://ltobet.gb.net/test2/",
+                navController = navController,
+                viewModel = viewModel
+
             )
-//            BmrCalculatorScreen(
-//                //url = "https://www.diabetes.co.uk/bmr-calculator.html",
-//                navController = navController,
-//                uiStates = bmrUiStates,
-//                onEvent = bmrCalculatorViewModel::onEvent
-//
-//            )
-
-
 
         }
 
         composable(route = ScreenRoutes.SecondScreenWebView.route) {
 
             BmrCalculatorScreen(
-                //url = "https://www.diabetes.co.uk/bmr-calculator.html",
                 navController = navController,
                 uiStates = bmrUiStates,
                 onEvent = bmrCalculatorViewModel::onEvent

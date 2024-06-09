@@ -1,18 +1,14 @@
 package com.bmrcalculator.bmrcalculator.app_features.presentation
 
-import android.webkit.JavascriptInterface
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -33,21 +29,23 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavController
 import com.bmrcalculator.bmrcalculator.R
 import com.bmrcalculator.bmrcalculator.app_features.core.navigation.ScreenRoutes
-import java.lang.reflect.Modifier
+import com.bmrcalculator.bmrcalculator.app_features.data.data_store_repo.DataStoreViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FirstScreenWebView(
+fun HomeScreen(
     url: String,
     navController: NavController,
+    viewModel: DataStoreViewModel
 
-    ){
-    
+
+){
     var webView: WebView? by remember {
 
         mutableStateOf(null)
 
     }
+
 
     Scaffold(
         modifier = androidx.compose.ui.Modifier
@@ -99,8 +97,6 @@ fun FirstScreenWebView(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            //AppRatingDialogBox()
-
 
             Box(
                 modifier = androidx.compose.ui.Modifier
@@ -113,7 +109,7 @@ fun FirstScreenWebView(
                         .fillMaxSize(1f),
                 ) {
 
-                    //ShowDialogBox()
+                    ShowDialogBox(viewModel = viewModel )
 
 
                     val context = LocalContext.current
@@ -140,9 +136,6 @@ fun FirstScreenWebView(
                             }
 
                             settings.javaScriptEnabled = true
-//                        settings.loadsImagesAutomatically = true
-//                        settings.useWideViewPort = true
-//                        settings.setSupportZoom(true)
 
                             loadUrl(url)
 

@@ -210,7 +210,7 @@ fun BmrCalculatorScreen(
                 }
 
                 //AppRatingDialogBox()
-                ShowDialogBox()
+                //ShowDialogBox()
 
                 Spacer(modifier = Modifier.height(8.dp))
                 //Text(text = uiStates.newSelectedGender)
