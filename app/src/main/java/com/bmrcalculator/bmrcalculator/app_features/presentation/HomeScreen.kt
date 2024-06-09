@@ -1,5 +1,8 @@
 package com.bmrcalculator.bmrcalculator.app_features.presentation
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
@@ -113,26 +116,38 @@ fun HomeScreen(
 
 
                     val context = LocalContext.current
+                    val clickHereLink = context.resources.getString(R.string.click_here_link)
+                    val bmrCalculatorScreenLink = context.resources.getString(R.string.bmr_calculator_screen_link)
 
                     AndroidView(factory = {
-                        //id = "myButton"
                         WebView(it).apply {
                             webViewClient = object: WebViewClient(){
                                 override fun shouldOverrideUrlLoading(
                                     view: WebView?,
                                     request: WebResourceRequest?
                                 ): Boolean {
+                                    val myUrl = request?.url.toString()
 
-                                    val url = request?.url.toString()
-                                    return if (url.startsWith("action://start_second_activity")){
-                                        //  Toast.makeText(context, "Alhamdullilah", Toast.LENGTH_SHORT).show()
-                                        navController.navigate(ScreenRoutes.SecondScreenWebView.route)
-                                        true
 
-                                    }else{
-                                        false
+                                    return when{
+                                        myUrl.startsWith(bmrCalculatorScreenLink) -> {
+                                            navController.navigate(ScreenRoutes.SecondScreenWebView.route)
+                                            true
+
+                                        }
+                                        myUrl == clickHereLink -> {
+                                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(myUrl))
+                                            context.startActivity(intent)
+                                            true
+                                        }
+                                        else -> false
+
+
                                     }
+
                                 }
+
+
                             }
 
                             settings.javaScriptEnabled = true

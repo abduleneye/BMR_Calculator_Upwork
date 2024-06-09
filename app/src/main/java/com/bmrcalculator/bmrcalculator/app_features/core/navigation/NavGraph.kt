@@ -4,9 +4,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.bmrcalculator.bmrcalculator.R
 import com.bmrcalculator.bmrcalculator.app_features.data.data_store_repo.DataStoreViewModel
 import com.bmrcalculator.bmrcalculator.app_features.presentation.HomeScreen
 import com.bmrcalculator.bmrcalculator.app_features.presentation.BmrCalculatorScreen
@@ -27,7 +29,7 @@ fun NavGraph(
         startDestination = ScreenRoutes.FirstScreenWebView.route
     ) {
         composable(route = ScreenRoutes.FirstScreenWebView.route) {
-            HomeScreen(url = "https://ltobet.gb.net/test2/",
+            HomeScreen(url = stringResource(id = R.string.home_page_link),
                 navController = navController,
                 viewModel = viewModel
 

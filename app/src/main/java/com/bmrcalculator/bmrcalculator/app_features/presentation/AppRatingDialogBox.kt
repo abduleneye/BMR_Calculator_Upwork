@@ -10,8 +10,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -64,75 +66,91 @@ fun AppRatingDialogBox(
 
         Card(
             elevation = 8.dp,
+            modifier = Modifier
+                .fillMaxWidth(0.7f)
+                .fillMaxHeight(0.5f)
+
         ) {
 
-            Column(modifier = Modifier
-                .fillMaxWidth(0.7f)
+            LazyColumn(modifier = Modifier
+                .fillMaxWidth()
                 .padding(16.dp))
             {
-
-                Icon(
-                    imageVector = Icons.Default.Close,
-                    contentDescription = "Close",
-                    tint = Color.Red,
-                    modifier = Modifier
-                        .align(Alignment.End)
-                        .clickable(onClick = onDismiss )
-                )
-
-                Spacer(modifier = Modifier.padding(top = 5.dp))
-                AsyncImage(
-                    model = ImageRequest.Builder(LocalContext.current)
-                        .data("file:///android_asset/kawaii_cute.gif")
-                        .decoderFactory(GifDecoder.Factory())
-                        .crossfade(true)
-                        .build(),
-                    contentDescription = null,
-
-                )
-
-                Spacer(modifier = Modifier
-                    .padding(top = 8.dp))
-
-                Text(
-                    text = message,
-                    style = MaterialTheme.typography.caption,
-                    modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Center,
-                    fontSize = 18.sp,
-                    fontWeight = FontWeight.Bold
-                )
-                Spacer(modifier = Modifier.padding(top = 8.dp))
-                Text(
-                    text = recommend,
-                    style = MaterialTheme.typography.caption,
-                    modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Center
-                )
-                Spacer(modifier = Modifier.padding(top = 8.dp))
-                Row(
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-
-                    Button(
+                item{
+                    Row(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(0.dp)
-                        ,
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.End
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Close,
+                            contentDescription = "Close",
+                            tint = Color.Red,
+                            modifier = Modifier
+                                //.align(Alignment.End)
+                                // .align(Alignment.End)
+                                .clickable(onClick = onDismiss )
+                        )
 
-                                onClick = onPositiveButtonClicked,
-                        colors = ButtonDefaults.buttonColors(
-                            backgroundColor = Color.Yellow,
-                            contentColor = Color.White,
+                    }
 
-                            ),) {
+                    Spacer(modifier = Modifier.padding(top = 5.dp))
+                    AsyncImage(
+                        modifier = Modifier.padding(start = 13.dp),
+                        model = ImageRequest.Builder(LocalContext.current)
+                            .data("file:///android_asset/kawaii_cute.gif")
+                            .decoderFactory(GifDecoder.Factory())
+                            .crossfade(true)
+                            .build(),
+                        contentDescription = null,
 
-                        Text(text = "RATE US")
+                        )
+
+                    Spacer(modifier = Modifier
+                        .padding(top = 8.dp))
+
+                    Text(
+                        text = message,
+                        style = MaterialTheme.typography.caption,
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.Center,
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Spacer(modifier = Modifier.padding(top = 8.dp))
+                    Text(
+                        text = recommend,
+                        style = MaterialTheme.typography.caption,
+                        modifier = Modifier.fillMaxWidth(),
+                        textAlign = TextAlign.Center
+                    )
+                    Spacer(modifier = Modifier.padding(top = 8.dp))
+                    Row(
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+
+                        Button(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(0.dp)
+                            ,
+
+                            onClick = onPositiveButtonClicked,
+                            colors = ButtonDefaults.buttonColors(
+                                backgroundColor = Color.Yellow,
+                                contentColor = Color.White,
+
+                                ),) {
+
+                            Text(text = "RATE US")
+
+                        }
 
                     }
 
                 }
+
 
             }
 

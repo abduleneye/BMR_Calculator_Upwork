@@ -21,10 +21,10 @@
 #-renamesourcefileattribute SourceFile
 
 #Keep Room-generated classes
--keep class com.bmrcalculator.bmrcalculator.app_features.data.data_store_repo.DataStoreRepoKt
--keep class com.bmrcalculator.bmrcalculator.app_features.data.data_store_repo.DataStoreViewModel
--keep class com.bmrcalculator.bmrcalculator.app_features.data.data_store_repo.DataStoreViewModelFactory
--keep class com.bmrcalculator.bmrcalculator.app_features.data.data_store_repo.PreferencesRepository
+#-keep class com.bmrcalculator.bmrcalculator.app_features.data.data_store_repo.DataStoreRepoKt
+#-keep class com.bmrcalculator.bmrcalculator.app_features.data.data_store_repo.DataStoreViewModel
+#-keep class com.bmrcalculator.bmrcalculator.app_features.data.data_store_repo.DataStoreViewModelFactory
+#-keep class com.bmrcalculator.bmrcalculator.app_features.data.data_store_repo.PreferencesRepository
 
 
 -dontwarn okhttp3.internal.platform.**
