@@ -6,6 +6,7 @@ import android.net.Uri
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -21,9 +22,11 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
@@ -43,11 +46,23 @@ fun HomeScreen(
 
 
 ){
+    val context = LocalContext.current
     var webView: WebView? by remember {
-
         mutableStateOf(null)
+    }
+
+    val randomFuncHasBeenCalled = rememberSaveable {
+        mutableStateOf(false)
+    }
+
+    LaunchedEffect(key1 = Unit) {
+        if (!randomFuncHasBeenCalled.value){
+            randomCharacter(context)
+            randomFuncHasBeenCalled.value = true
+        }
 
     }
+
 
 
     Scaffold(
@@ -170,6 +185,18 @@ fun HomeScreen(
         }
     }
     }
+
+fun randomCharacter(context: Context){
+    val randomCharacter = listOf("00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10")
+    //
+
+    val det = randomCharacter.random()
+
+    if (det == "00"){
+        Toast.makeText(context, "HELLO", Toast.LENGTH_SHORT).show()
+    }
+
+}
 
 
 

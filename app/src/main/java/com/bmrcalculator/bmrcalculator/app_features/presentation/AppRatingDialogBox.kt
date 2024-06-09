@@ -28,7 +28,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -194,7 +193,8 @@ fun ShowDialogBox(
                 onDismiss = {
                     //viewModel.updateDialogShown(true)
                     viewModel.resetDialogBoxStatusToDefault()
-                    Toast.makeText(context,"Dismissed ${viewModel.DialogShown}",Toast.LENGTH_SHORT).show()},
+                    Toast.makeText(context,"Dismissed ${viewModel.DialogShown}",Toast.LENGTH_SHORT).show()
+                            },
                 onPositiveButtonClicked = {
                     openPlayStoreReviewPage(context = context)
                     viewModel.updateDialogShown(true)
