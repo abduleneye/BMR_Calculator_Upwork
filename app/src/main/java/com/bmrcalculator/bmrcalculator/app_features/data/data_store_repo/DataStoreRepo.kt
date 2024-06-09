@@ -44,5 +44,14 @@ class PreferencesRepository(private val context: Context) {
 
     }
 
+    suspend fun resetToDefaultForCancellingDialogBox(){
+        context.dataStore.edit { preferences ->
+            preferences[ENTRY_COUNT_KEY] = 0
+            preferences[DIALOG_SHOW_KEY] = false
+
+
+        }
+    }
+
 
 }

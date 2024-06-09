@@ -174,7 +174,8 @@ fun ShowDialogBox(
                 message = "Like using Zeta app?",
                 recommend = "Recommend us to others by \n rating us on Play Store",
                 onDismiss = {
-                    viewModel.updateDialogShown(true)
+                    //viewModel.updateDialogShown(true)
+                    viewModel.resetDialogBoxStatusToDefault()
                     Toast.makeText(context,"Dismissed ${viewModel.DialogShown}",Toast.LENGTH_SHORT).show()},
                 onPositiveButtonClicked = {
                     openPlayStoreReviewPage(context = context)

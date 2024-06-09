@@ -28,6 +28,13 @@ class DataStoreViewModel(private val repository: PreferencesRepository): ViewMod
 
     }
 
+    fun resetDialogBoxStatusToDefault(){
+        viewModelScope.launch {
+            repository.resetToDefaultForCancellingDialogBox()
+        }
+
+    }
+
 
 }
 
