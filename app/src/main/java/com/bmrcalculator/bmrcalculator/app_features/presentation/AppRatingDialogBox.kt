@@ -56,9 +56,6 @@ fun AppRatingDialogBox(
 
 
 
-    val context = LocalContext.current
-    val scope = rememberCoroutineScope()
-
 
 
     Dialog(onDismissRequest = onDismiss,  properties = properties) {
@@ -193,13 +190,13 @@ fun ShowDialogBox(
                 onDismiss = {
                     //viewModel.updateDialogShown(true)
                     viewModel.resetDialogBoxStatusToDefault()
-                    Toast.makeText(context,"Dismissed ${viewModel.DialogShown}",Toast.LENGTH_SHORT).show()
+                  //  Toast.makeText(context,"Dismissed ${viewModel.DialogShown}",Toast.LENGTH_SHORT).show()
                             },
                 onPositiveButtonClicked = {
                     openPlayStoreReviewPage(context = context)
                     viewModel.updateDialogShown(true)
-                    Toast.makeText(context,"Condi ${viewModel.DialogShown.value}",Toast.LENGTH_SHORT).show()
-                    Toast.makeText(context, "Positive Button Clicked", Toast.LENGTH_SHORT).show()
+                   // Toast.makeText(context,"Condi ${viewModel.DialogShown.value}",Toast.LENGTH_SHORT).show()
+                  //  Toast.makeText(context, "Positive Button Clicked", Toast.LENGTH_SHORT).show()
                 },
             )
         }
